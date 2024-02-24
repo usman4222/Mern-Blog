@@ -6,7 +6,8 @@ import DashBoard from './pages/DashBoard';
 import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
 import Header from './components/Header';
-import Footer  from './components/Footer';
+import Footer from './components/Footer';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
 
@@ -17,7 +18,9 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/about' element={<About />} />
         <Route path='/projects' element={<Projects />} />
-        <Route path='/dashboard' element={<DashBoard />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path='/dashboard' element={<DashBoard />} />
+        </Route>
         <Route path='/sign-in' element={<SignIn />} />
         <Route path='/sign-up' element={<SignUp />} />
       </Routes>
