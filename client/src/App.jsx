@@ -6,12 +6,13 @@ import DashBoard from './pages/DashBoard';
 import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
 import Header from './components/Header';
+import Footer  from './components/Footer';
 
 function App() {
 
   return (
     <BrowserRouter>
-    <Header/>
+      <Header />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/about' element={<About />} />
@@ -20,6 +21,7 @@ function App() {
         <Route path='/sign-in' element={<SignIn />} />
         <Route path='/sign-up' element={<SignUp />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   )
 }
