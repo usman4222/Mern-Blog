@@ -25,7 +25,7 @@ const DashSideBar = () => {
                             Profile
                         </Sidebar.Item>
                     </Link>
-                    <Sidebar.Item icon={HiArrowRight} classname="cursor-pointer" >
+                    <Sidebar.Item icon={HiArrowRight} className="cursor-pointer" >
                         Sign Out
                     </Sidebar.Item>
                 </Sidebar.ItemGroup>
