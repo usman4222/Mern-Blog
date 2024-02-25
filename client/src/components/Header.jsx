@@ -6,6 +6,7 @@ import { FaMoon, FaSun } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
 import DashBoard from '../pages/DashBoard'
 import { toogleTheme } from '../redux/theme/themeSlice'
+import { signOutSuccess } from '../redux/user/userSlice'
 
 const Header = () => {
 
@@ -13,6 +14,22 @@ const Header = () => {
     const { currentUser } = useSelector(state => state.user)
     const dispatch = useDispatch()
     const { theme } = useSelector(state => state.theme)
+
+    const handleSignOut = async () => {
+        try {
+            const res = await fetch('/api/user/signout', {
+                method: 'POST'
+            })
+            const data = await res.json()
+            if (!res.ok) {
+                console.log(error.message);
+            } else {
+                dispatch(signOutSuccess())
+            }
+        } catch (error) {
+
+        }
+    }
 
     return (
         <Navbar className='border-b-2'>
@@ -56,7 +73,7 @@ const Header = () => {
                             </Link>
                             <Dropdown.Divider />
                             <Link>
-                                <Dropdown.Item>Sign Out</Dropdown.Item>
+                                <Dropdown.Item onClick={handleSignOut}>Sign Out</Dropdown.Item>
                             </Link>
                         </Dropdown>
                     </div>
