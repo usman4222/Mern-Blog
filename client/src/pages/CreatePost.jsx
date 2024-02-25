@@ -126,10 +126,10 @@ const CreatePost = () => {
             className='w-full h-72 object-cover'
           />
         )}
-        <ReactQuill theme='snow' placeholder='Write something...' className='h-72 mb-12' required
+        <ReactQuill theme='snow' placeholder='Write something...'  className='h-72 mb-12' required
           onChange={(value) => { setFormData({ ...formData, content: value }) }}
         />
-        <Button type='submit' gradientDuoTone="purpleToPink">Publish</Button>
+        <Button type='submit' gradientDuoTone="purpleToPink" className='mb-5'>Publish</Button>
         {
           publishError && <Alert className='mt-5' color='failure'>{publishError}</Alert>
         }
