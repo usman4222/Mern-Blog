@@ -8,6 +8,8 @@ import SignUp from './pages/SignUp'
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ProtectedRoute from './components/ProtectedRoute';
+import AdminProtectedRoute from './components/AdminProtectedRoute';
+import CreatePost from './pages/CreatePost';
 
 function App() {
 
@@ -20,6 +22,9 @@ function App() {
         <Route path='/projects' element={<Projects />} />
         <Route element={<ProtectedRoute />}>
           <Route path='/dashboard' element={<DashBoard />} />
+        </Route>
+        <Route element={<AdminProtectedRoute />}>
+          <Route path='/create-post' element={<CreatePost />} />
         </Route>
         <Route path='/sign-in' element={<SignIn />} />
         <Route path='/sign-up' element={<SignUp />} />

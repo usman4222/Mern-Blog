@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from 'react'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { app } from '../firebase'
+import { Link } from 'react-router-dom'
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
@@ -19,7 +20,7 @@ import { HiOutlineExclamationCircle } from 'react-icons/hi'
 
 const DashProfile = () => {
 
-    const { currentUser, error } = useSelector(state => state.user)
+    const { currentUser, error, loading } = useSelector(state => state.user)
     const [imageFile, setImageFile] = useState(null)
     const [imageFileUrl, setImageFileUrl] = useState(null)
     const filePickerRef = useRef()
@@ -229,7 +230,21 @@ const DashProfile = () => {
                     placeholder='******'
                     onChange={handleChange}
                 />
-                <Button type='submit' gradientDuoTone="purpleToBlue" outline>Update</Button>
+                <Button
+                    type='submit'
+                    gradientDuoTone="purpleToBlue"
+                    outline
+                    disabled={loading || imageFileUploading}
+                >
+                    {loading ? 'Loading...' : 'Update'}
+                </Button>
+                {currentUser.isAdmin && (
+                    <Link to={'/create-post'}>
+                        <Button type='button' gradientDuoTone='purpleToPink' className='w-full'>
+                            Create a post
+                        </Button>
+                    </Link>
+                )}
             </form>
             <div className='flex justify-between mt-5 mb-10 md:mb-0'>
                 <span onClick={() => setShowModal(true)} className='px-3 py-2 cursor-pointer bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white'>Delete</span>
