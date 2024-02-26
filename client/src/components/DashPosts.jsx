@@ -46,7 +46,7 @@ const DashPosts = () => {
                 }
             }
         } catch (error) {
-
+            console.log(error);
         }
     }
 
@@ -121,9 +121,11 @@ const DashPosts = () => {
                             </Table.Body>
                         ))}
                     </Table>
-                    {showMore && (
-                        <button onClick={handleShowMore} className='w-full text-teal-500 self-center text-sm py-7'>Show more</button>
-                    )}
+                    <div className='flex justify-center mt-5'>
+                        {showMore && (
+                            <Button onClick={handleShowMore} gradientDuoTone="purpleToPink" className='mb-5  text-white self-center text-sm px-4 py-2'>Show More</Button>
+                        )}
+                    </div>
                 </>
             ) : <p>You have not post yet.</p>}
             <Modal show={showModal} onClose={() => setShowModal(false)} popup size="md">
