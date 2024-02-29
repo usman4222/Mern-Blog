@@ -32,6 +32,7 @@ const DashProfile = () => {
     const [updateUserSuccess, setUpdateUserSuccess] = useState(null)
     const [updateUserError, setUpdateUserError] = useState(null)
     const [showModal, setShowModal] = useState(false)
+    const [delShowModal, setDelShowModal] = useState(false)
 
     //fire base rule for image*********
     //     rules_version = '2';
@@ -123,8 +124,8 @@ const DashProfile = () => {
                 setUpdateUserError(data.message)
             }
             else {
-                dispatch(updateSuccess(data.user))
-                setUpdateUserSuccess("User updated successfully")
+                dispatch(updateSuccess(data))
+                setUpdateUserSuccess("User Updated Successfully.")
             }
         } catch (error) {
             dispatch(updateFailure(error.message))
@@ -133,7 +134,7 @@ const DashProfile = () => {
     }
 
     const handleDeleteUser = async () => {
-        setShowModal(false)
+        setDelShowModal(false)
         try {
             dispatch(deleteUserStart())
             const res = await fetch(`/api/user/delete/${currentUser._id}`, {
@@ -160,6 +161,7 @@ const DashProfile = () => {
             if (!res.ok) {
                 console.log(error.message);
             } else {
+                setShowModal(false)
                 dispatch(signOutSuccess())
             }
         } catch (error) {
@@ -247,7 +249,7 @@ const DashProfile = () => {
                 )}
             </form>
             <div className='flex justify-between mt-5 mb-10 md:mb-0'>
-                <span onClick={() => setShowModal(true)} className='px-3 py-2 cursor-pointer bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white'>Delete</span>
+                <span onClick={() => setDelShowModal(true)} className='px-3 py-2 cursor-pointer bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white'>Delete</span>
                 <span onClick={() => setShowModal(true)} className='px-3 py-2 cursor-pointer bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white'>Sign Out</span>
             </div>
             {updateUserSuccess && (
@@ -259,7 +261,7 @@ const DashProfile = () => {
             {error && (
                 <Alert color="failure" className='mt-5'>{error}</Alert>
             )}
-            <Modal show={showModal} onClose={() => setShowModal(false)} popup size="md">
+            <Modal show={delShowModal} onClose={() => setDelShowModal(false)} popup size="md">
                 <Modal.Header />
                 <Modal.Body>
                     <div className="text-center">
@@ -267,7 +269,7 @@ const DashProfile = () => {
                         <h3 className='mb-4 text-gray-500 text-lg dark:text-gary-400'>Are you sure to delete your account?</h3>
                         <div className='flex justify-center gap-4'>
                             <Button onClick={handleDeleteUser} color='failure'>Yes, I'm sure</Button>
-                            <Button onClick={() => setShowModal(false)} color='gray'>No, Cancel</Button>
+                            <Button onClick={() => setDelShowModal(false)} color='gray'>No, Cancel</Button>
                         </div>
                     </div>
                 </Modal.Body>
