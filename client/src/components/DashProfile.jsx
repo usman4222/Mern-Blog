@@ -248,7 +248,7 @@ const DashProfile = () => {
             </form>
             <div className='flex justify-between mt-5 mb-10 md:mb-0'>
                 <span onClick={() => setShowModal(true)} className='px-3 py-2 cursor-pointer bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white'>Delete</span>
-                <span onClick={handleSignOut} className='px-3 py-2 cursor-pointer bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white'>Sign Out</span>
+                <span onClick={() => setShowModal(true)} className='px-3 py-2 cursor-pointer bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white'>Sign Out</span>
             </div>
             {updateUserSuccess && (
                 <Alert color="success" className='mt-5'>{updateUserSuccess}</Alert>
@@ -267,6 +267,19 @@ const DashProfile = () => {
                         <h3 className='mb-4 text-gray-500 text-lg dark:text-gary-400'>Are you sure to delete your account?</h3>
                         <div className='flex justify-center gap-4'>
                             <Button onClick={handleDeleteUser} color='failure'>Yes, I'm sure</Button>
+                            <Button onClick={() => setShowModal(false)} color='gray'>No, Cancel</Button>
+                        </div>
+                    </div>
+                </Modal.Body>
+            </Modal>
+            <Modal show={showModal} onClose={() => setShowModal(false)} popup size="md">
+                <Modal.Header />
+                <Modal.Body>
+                    <div className="text-center">
+                        <HiOutlineExclamationCircle className='h-14 w-14 text-gary-400 dark:text-gray-200 mb-4 mx-auto' />
+                        <h3 className='mb-4 text-gray-500 text-lg dark:text-gary-400'>Are you sure to Sign Out?</h3>
+                        <div className='flex justify-center gap-4'>
+                            <Button onClick={handleSignOut} color='failure'>Yes, I'm sure</Button>
                             <Button onClick={() => setShowModal(false)} color='gray'>No, Cancel</Button>
                         </div>
                     </div>

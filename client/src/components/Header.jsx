@@ -1,5 +1,5 @@
-import { Avatar, Button, Dropdown, Navbar, TextInput } from 'flowbite-react'
-import React from 'react'
+import { Avatar, Button, Dropdown, Modal, Navbar, TextInput } from 'flowbite-react'
+import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { FaMoon, FaSun } from 'react-icons/fa'
@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import DashBoard from '../pages/DashBoard'
 import { toogleTheme } from '../redux/theme/themeSlice'
 import { signOutSuccess } from '../redux/user/userSlice'
+import { HiOutlineExclamationCircle } from 'react-icons/hi'
 
 const Header = () => {
 
@@ -14,6 +15,7 @@ const Header = () => {
     const { currentUser } = useSelector(state => state.user)
     const dispatch = useDispatch()
     const { theme } = useSelector(state => state.theme)
+    const [showModal, setShowModal] = useState(false)
 
     const handleSignOut = async () => {
         try {
@@ -73,7 +75,7 @@ const Header = () => {
                             </Link>
                             <Dropdown.Divider />
                             <Link>
-                                <Dropdown.Item onClick={handleSignOut}>Sign Out</Dropdown.Item>
+                                <Dropdown.Item onClick={() => setShowModal(true)}>Sign Out</Dropdown.Item>
                             </Link>
                         </Dropdown>
                     </div>
@@ -86,6 +88,19 @@ const Header = () => {
                 )}
                 <Navbar.Toggle />
             </div >
+            <Modal show={showModal} onClose={() => setShowModal(false)} popup size="md">
+                <Modal.Header />
+                <Modal.Body>
+                    <div className="text-center">
+                        <HiOutlineExclamationCircle className='h-14 w-14 text-gary-400 dark:text-gray-200 mb-4 mx-auto' />
+                        <h3 className='mb-4 text-gray-500 text-lg dark:text-gary-400'>Are you sure to Sign Out?</h3>
+                        <div className='flex justify-center gap-4'>
+                            <Button onClick={handleSignOut} color='failure'>Yes, I'm sure</Button>
+                            <Button onClick={() => setShowModal(false)} color='gray'>No, Cancel</Button>
+                        </div>
+                    </div>
+                </Modal.Body>
+            </Modal>
             <Navbar.Collapse>
                 <Navbar.Link active={path === "/"} as={'div'}>   {/*We use "as" because we cannot use 'a'(anchor tag) in 'a'*/}
                     <Link to="/">Home</Link>
