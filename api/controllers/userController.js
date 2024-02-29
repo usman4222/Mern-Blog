@@ -47,7 +47,7 @@ export const updateUser = async (req, res, next) => {
 }
 
 export const deleteUser = async (req, res, next) => {
-    if (req.user.id !== req.params.userId) {
+    if (!req.user.isAdmin && req.user.id !== req.params.userId) {
         return next(ErrorHandler(403, "You are not allowed to delete user"))
     }
     try {
@@ -71,9 +71,9 @@ export const signOut = async (req, res, next) => {
 
 
 export const getUsers = async (req, res, next) => {
-    // if (!req.user.isAdmin) {
-    //     return next(ErrorHandler(403, "You are not allowed to create post"))
-    // }
+    if (!req.user.isAdmin) {
+        return next(ErrorHandler(403, "You are not allowed to create post"))
+    }
     try {
       const startIndex = parseInt(req.query.startIndex) || 0;
       const limit = parseInt(req.query.limit) || 9;
