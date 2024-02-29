@@ -11,6 +11,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import AdminProtectedRoute from './components/AdminProtectedRoute';
 import CreatePost from './pages/CreatePost';
 import UpdatePost from './pages/UpdatePost';
+import PostPages from './pages/PostPages';
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/about' element={<About />} />
         <Route path='/projects' element={<Projects />} />
+        <Route path='/post/:postSlug' element={<PostPages />} />
         <Route element={<ProtectedRoute />}>
           <Route path='/dashboard' element={<DashBoard />} />
         </Route>
