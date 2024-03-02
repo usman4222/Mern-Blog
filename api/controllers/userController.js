@@ -116,11 +116,34 @@ export const getUsers = async (req, res, next) => {
 export const getUser = async (req, res, next) => {
     try {
         const user = await User.findById(req.params.userId)
-        if(!user){
-            return next(ErrorHandler(404,"User not found"))
+        if (!user) {
+            return next(ErrorHandler(404, "User not found"))
         }
         const { password, ...rest } = user._doc
         res.status(200).json(rest)
+    } catch (error) {
+        next(error)
+    }
+}
+
+
+export const likeComment = async (req, res, next) => {
+    try {
+        const comment = await Comment.findById(req.params.commentId)
+        if (!comment) {
+            return next(ErrorHandler(404, "Comment not Found"))
+        }
+        const userIndex = comment.likes.indexOf(req.user.id)
+        if (userIndex === -1) { //-1 is for add user like
+            comment.numberOfLikes += 1 //increase one number of likes
+            comment.likes.push(req.user.id)
+        }
+        else {
+            comment.numberOfLikes -= 1 //decrease one number of likes
+            comment.likes.splice(userIndex, 1) //1 is for add user like and splice is use for removing
+        }
+        await comment.save()
+        res.status(200).json(comment)
     } catch (error) {
         next(error)
     }
