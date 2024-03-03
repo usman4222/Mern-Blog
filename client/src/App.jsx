@@ -13,6 +13,7 @@ import CreatePost from './pages/CreatePost';
 import UpdatePost from './pages/UpdatePost';
 import PostPages from './pages/PostPages';
 import ScrollToTop from './components/ScrollToTop';
+import Search from './pages/Search';
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
         </Route>
         <Route path='/sign-in' element={<SignIn />} />
         <Route path='/sign-up' element={<SignUp />} />
+        <Route path='/search' element={<Search />} />
       </Routes>
       <Footer />
     </BrowserRouter>
