@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import moment from 'moment'
+import { FaThumbsUp } from 'react-icons/fa'
+import { useSelector } from 'react-redux'
 
-const Comments = ({ comment }) => {
+const Comments = ({ comment, onLike }) => {
 
     const [user, setUser] = useState({})
+    const { currentUser } = useSelector((state) => state.user)
     useEffect(() => {
         const getUser = async () => {
             try {
@@ -18,6 +21,11 @@ const Comments = ({ comment }) => {
         }
         getUser()
     }, [comment])
+    // console.log('Comment ID:', comment._id);
+    // console.log('Comment Likes:', comment.likes);
+    // console.log('Current User ID:', currentUser ? currentUser._id : 'No Current User');
+    // console.log('Is Liked:', currentUser && comment.likes.includes(currentUser._id));
+
 
     return (
         <div className='flex p-4 border-b dark:border-gray-600 text-sm'>
@@ -32,8 +40,26 @@ const Comments = ({ comment }) => {
                 <div>
                     <p className='text-gray-500 pb-2'>{comment.content}</p>
                 </div>
+                <div className='flex items-center gap-2 pt-2 text-xs max-w-fit'>
+                    <button
+                        type='button'
+                        onClick={() => onLike(comment._id)}
+                        className={`text-gray-400 hover:text-blue-500 ${currentUser &&
+                            comment.likes.includes(currentUser._id) &&
+                            '!text-blue-500'
+                            }`}
+                    >
+                        <FaThumbsUp className='text-sm' />
+                    </button>
+                    <p className='text-gray-400'>
+                        {comment.numberOfLikes > 0 &&
+                            comment.numberOfLikes +
+                            ' ' +
+                            (comment.numberOfLikes === 1 ? 'like' : 'likes')}
+                    </p>
+                </div>
             </div>
-        </div>
+        </div >
     )
 }
 
