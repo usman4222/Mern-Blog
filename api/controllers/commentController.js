@@ -56,7 +56,7 @@ export const likeComment = async (req, res, next) => {
         }
 
         await comment.save();
-        
+
         res.status(200).json(comment);
     } catch (error) {
         next(error);
@@ -77,7 +77,7 @@ export const editComment = async (req, res, next) => {
         }
 
         const editedComment = await Comment.findByIdAndUpdate(req.params.commentId, {
-            content: req.body.comment
+            content: req.body.content
         }, { new: true })
 
         res.status(200).json(editedComment)
