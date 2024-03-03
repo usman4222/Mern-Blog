@@ -1,4 +1,5 @@
 import User from "../models/Usermodel.js"
+import Comment from "../models/commentModel.js"
 import { ErrorHandler } from "../utils/error.js"
 import bcryptjs from "bcryptjs"
 
@@ -129,22 +130,27 @@ export const getUser = async (req, res, next) => {
 
 export const likeComment = async (req, res, next) => {
     try {
-        const comment = await Comment.findById(req.params.commentId)
+        const comment = await Comment.findById(req.params.commentId);
+
         if (!comment) {
-            return next(ErrorHandler(404, "Comment not Found"))
+            return next(ErrorHandler(404, "Comment not Found"));
         }
-        const userIndex = comment.likes.indexOf(req.user.id)
-        if (userIndex === -1) { //-1 is for add user like
-            comment.numberOfLikes += 1 //increase one number of likes
-            comment.likes.push(req.user.id)
+
+        const userIndex = comment.likes.indexOf(req.user.id);
+
+        if (userIndex === -1) {
+            // User is not in the likes array
+            comment.numberOfLikes = Math.max(0, comment.numberOfLikes) + 1; 
+            comment.likes.push(req.user.id);
+        } else {
+            // User is already in the likes array
+            comment.numberOfLikes = Math.max(0, comment.numberOfLikes - 1); 
+            comment.likes.splice(userIndex, 1); // Remove user like
         }
-        else {
-            comment.numberOfLikes -= 1 //decrease one number of likes
-            comment.likes.splice(userIndex, 1) //1 is for add user like and splice is use for removing
-        }
-        await comment.save()
-        res.status(200).json(comment)
+
+        await comment.save();
+        res.status(200).json(comment);
     } catch (error) {
-        next(error)
+        next(error);
     }
-}
+};
