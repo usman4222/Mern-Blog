@@ -19,14 +19,14 @@ const FooterComponent = () => {
                             <Footer.Title title='About' />
                             <Footer.LinkGroup col>
                                 <Footer.Link
-                                    href=''
+                                    href='#'
                                     target='_blank'
                                     rel='noopener noreferrer'
                                 >
                                     100 JS Projects
                                 </Footer.Link>
                                 <Footer.Link
-                                    href='/about'
+                                    href='#'
                                     target='_blank'
                                     rel='noopener noreferrer'
                                 >
@@ -57,14 +57,14 @@ const FooterComponent = () => {
                             <Footer.Title title='Legal' />
                             <Footer.LinkGroup col>
                                 <Footer.Link
-                                    href=''
+                                    href='#'
                                     target='_blank'
                                     rel='noopener noreferrer'
                                 >
                                     Privacy Policy
                                 </Footer.Link>
                                 <Footer.Link
-                                    href='/about'
+                                    href='#'
                                     target='_blank'
                                     rel='noopener noreferrer'
                                 >
