@@ -49,16 +49,17 @@ export const signIn = async (req, res, next) => {
 
         const token = jwt.sign({ id: validUser._id, isAdmin: validUser.isAdmin }, process.env.JWT_SECRET)
 
+        // Exclude sensitive information like password from the response
         const { password: pass, ...rest } = validUser._doc
 
-        res.status(200).cookie('access_token', token, {
-            httpOnly: true
-        }).json(rest)
+        // Respond with token and user data
+        res.status(200).json({ token, user: rest })
 
     } catch (error) {
         next(error)
     }
 }
+
 
 
 
