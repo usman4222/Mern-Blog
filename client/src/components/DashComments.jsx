@@ -17,7 +17,7 @@ const DashComments = () => {
     useEffect(() => {
         const fetchComments = async () => {
             try {
-                const res = await fetch(`/api/comment/getcomments`);
+                const res = await fetch(`https://blog-backend-ashen.vercel.app/api/comment/getcomments`);
                 const data = await res.json();
                 if (res.ok) {
                     setComments(data.comments);
@@ -37,7 +37,7 @@ const DashComments = () => {
     const handleShowMore = async () => {
         const startIndex = comments.length
         try {
-            const res = await fetch(`/api/comment/getcomments?startIndex=${startIndex}`)
+            const res = await fetch(`https://blog-backend-ashen.vercel.app/api/comment/getcomments?startIndex=${startIndex}`)
             const data = await res.json()
             if (res.ok) {
                 setComments((prev) => [...prev, ...data.comments])
@@ -53,7 +53,7 @@ const DashComments = () => {
     const handleDeleteComment = async () => {
         setShowModal(false)
         try {
-            const res = await fetch(`/api/comment/deletecomment/${commentIdToDelete}`, {
+            const res = await fetch(`https://blog-backend-ashen.vercel.app/api/comment/deletecomment/${commentIdToDelete}`, {
                 method: 'DELETE'
             })
             const data = await res.json()

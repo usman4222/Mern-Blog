@@ -21,7 +21,7 @@ const CommentSection = ({ postId }) => {
             return
         }
         try {
-            const res = await fetch('/api/comment/create', {
+            const res = await fetch('https://blog-backend-ashen.vercel.app/api/comment/create', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -43,7 +43,7 @@ const CommentSection = ({ postId }) => {
     useEffect(() => {
         const getComments = async () => {
             try {
-                const res = await fetch(`/api/comment/getpostcomments/${postId}`);
+                const res = await fetch(`https://blog-backend-ashen.vercel.app/api/comment/getpostcomments/${postId}`);
                 if (res.ok) {
                     const data = await res.json()
                     setComments(data);
@@ -62,7 +62,7 @@ const CommentSection = ({ postId }) => {
                 return;
             }
 
-            const res = await fetch(`/api/comment/likecomment/${commentId}`, {
+            const res = await fetch(`https://blog-backend-ashen.vercel.app/api/comment/likecomment/${commentId}`, {
                 method: 'PUT'
             });
 
@@ -101,7 +101,7 @@ const CommentSection = ({ postId }) => {
                 return;
             }
 
-            const res = await fetch(`/api/comment/deletecomment/${commentId}`, {
+            const res = await fetch(`https://blog-backend-ashen.vercel.app/api/comment/deletecomment/${commentId}`, {
                 method: 'DELETE',
             });
 

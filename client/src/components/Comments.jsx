@@ -13,7 +13,7 @@ const Comments = ({ comment, onLike, onEdit, onDelete }) => {
     useEffect(() => {
         const getUser = async () => {
             try {
-                const res = await fetch(`/api/user/${comment.userId}`)
+                const res = await fetch(`https://blog-backend-ashen.vercel.app/api/user/${comment.userId}`)
                 const data = await res.json()
                 if (res.ok) {
                     setUser(data)
@@ -32,7 +32,7 @@ const Comments = ({ comment, onLike, onEdit, onDelete }) => {
 
     const handleSave = async () => {
         try {
-            const res = await fetch(`/api/comment/editcomment/${comment._id}`, {
+            const res = await fetch(`https://blog-backend-ashen.vercel.app/api/comment/editcomment/${comment._id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'

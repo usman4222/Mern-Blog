@@ -10,7 +10,7 @@ const Home = () => {
   useEffect(() => {
     try {
       const fetchPosts = async () => {
-        const res = await fetch('/api/post/getposts')
+        const res = await fetch('https://blog-backend-ashen.vercel.app/api/post/getposts')
         const data = await res.json()
         setPosts(data.posts)
       }

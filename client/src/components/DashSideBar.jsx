@@ -23,7 +23,7 @@ const DashSideBar = () => {
 
     const handleSignOut = async () => {
         try {
-            const res = await fetch('/api/user/signout', {
+            const res = await fetch('https://blog-backend-ashen.vercel.app/api/user/signout', {
                 method: 'POST'
             })
             const data = await res.json()

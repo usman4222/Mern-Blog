@@ -17,7 +17,7 @@ const DashUsers = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const res = await fetch(`/api/user/getusers`);
+                const res = await fetch(`https://blog-backend-ashen.vercel.app/api/user/getusers`);
                 const data = await res.json();
                 if (res.ok) {
                     setUsers(data.users);
@@ -37,7 +37,7 @@ const DashUsers = () => {
     const handleShowMore = async () => {
         const startIndex = users.length
         try {
-            const res = await fetch(`/api/user/getusers?startIndex=${startIndex}`)
+            const res = await fetch(`https://blog-backend-ashen.vercel.app/api/user/getusers?startIndex=${startIndex}`)
             const data = await res.json()
             if (res.ok) {
                 setUsers((prev) => [...prev, ...data.users])
@@ -52,7 +52,7 @@ const DashUsers = () => {
 
     const handleDeleteUser = async () => {
         try {
-            const res = await fetch(`/api/user/delete/${userIdToDelete}`, {
+            const res = await fetch(`https://blog-backend-ashen.vercel.app/api/user/delete/${userIdToDelete}`, {
                 method: 'DELETE'
             })
             const data = await res.json()
