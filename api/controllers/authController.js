@@ -51,6 +51,7 @@ export const signIn = async (req, res, next) => {
 
         // Exclude sensitive information like password from the response
         const { password: pass, ...rest } = validUser._doc
+        console.log("valid user",validPassword, "and this is token" ,token);
 
         // Respond with token and user data
         res.status(200).json({ token, user: rest })

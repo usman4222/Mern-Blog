@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom'
 import CallToAction from '../components/CallToAction'
 import CommentSection from '../components/CommentSection'
 import PostCard from '../components/PostCard'
+import { useSelector } from 'react-redux'
 
 const PostPages = () => {
 
@@ -12,6 +13,10 @@ const PostPages = () => {
     const [error, setError] = useState(false)
     const [post, setPost] = useState(null)
     const [recentPosts, setRescentPosts] = useState(null)
+    const { error: errorMessage, user } = useSelector(state => state.user)
+
+    console.log(user);
+
 
     useEffect(() => {
         const fetchPost = async () => {

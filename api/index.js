@@ -6,7 +6,6 @@ import authRoutes from './routes/authRoute.js';
 import postRoutes from './routes/postRoute.js';
 import commentRoutes from './routes/commentRoute.js';
 import cookieParser from 'cookie-parser';
-import path from 'path'
 
 dotenv.config()
 
@@ -21,13 +20,13 @@ mongoose.connect(process.env.MONGO)
 const app = express();
 app.use(express.json())
 app.use(cookieParser())
-const PORT = 3000;
 
-app.listen(PORT, (error) => {
+
+app.listen(process.env.PORT, (error) => {
     if (error) {
         console.error('Error while starting the server:', error);
     } else {
-        console.log(`Server is running on port ${PORT}`);
+        console.log(`Server is running on port ${process.env.PORT}`);
     }
 });
 

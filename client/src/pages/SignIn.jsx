@@ -10,11 +10,13 @@ const SignIn = () => {
   const [formData, setFormData] = useState({})
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { loading, error: errorMessage } = useSelector(state => state.user)
+  const { loading, error: errorMessage, user } = useSelector(state => state.user)
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value.trim() })
   }
+
+  console.log(user);
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -23,12 +25,13 @@ const SignIn = () => {
     }
     try {
       dispatch(signInStart())
-      const res = await fetch('https://blog-backend-ashen.vercel.app/api/auth/signin', {
+      const res = await fetch('/api/auth/signin', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
       })
       const data = await res.json()
+      console.log("This is user data", data);
       if (data.success === false) {
         dispatch(signInFailure(data.message))
       }
