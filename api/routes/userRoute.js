@@ -11,4 +11,4 @@ router.post('/signout', signOut)
 router.get('/getusers', verifyToken, getUsers)
 router.get('/:userId', getUser)
 
-export default router;
+export default router; 

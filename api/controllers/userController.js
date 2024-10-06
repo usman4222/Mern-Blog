@@ -61,13 +61,16 @@ export const deleteUser = async (req, res, next) => {
 
 export const signOut = async (req, res, next) => {
     try {
-        res.clearCookie('access_token')
-            .status(200)
-            .json("User Sign Out Successfully")
+        res.clearCookie('token', {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+        });
+
+        return res.status(200).json({ message: "User signed out successfully." });
     } catch (error) {
-        next(error)
+        next(error);
     }
-}
+};
 
 
 export const getUsers = async (req, res, next) => {

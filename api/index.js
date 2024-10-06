@@ -6,6 +6,7 @@ import authRoutes from './routes/authRoute.js';
 import postRoutes from './routes/postRoute.js';
 import commentRoutes from './routes/commentRoute.js';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 
 dotenv.config()
 
@@ -20,6 +21,12 @@ mongoose.connect(process.env.MONGO)
 const app = express();
 app.use(express.json())
 app.use(cookieParser())
+
+app.use(cors({
+    origin: 'http://localhost:5173', 
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], 
+    credentials: true 
+}));
 
 
 app.listen(process.env.PORT, (error) => {

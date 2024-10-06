@@ -27,73 +27,106 @@ export const signUp = async (req, res, next) => {
 }
 
 
+
+
 export const signIn = async (req, res, next) => {
-    const { email, password } = req.body
+    const { email, password } = req.body;
 
     if (!email || !password || email === "" || password === "") {
-        return next(ErrorHandler(400, "Email or password is required"))
+        return next(ErrorHandler(400, "Email or password is required"));
     }
 
     try {
-        const validUser = await User.findOne({ email })
+        const validUser = await User.findOne({ email });
 
         if (!validUser) {
-            return next(ErrorHandler(404, "Invalid Email and Password"))
+            return next(ErrorHandler(404, "Invalid Email or Password"));
         }
 
-        const validPassword = bcryptjs.compareSync(password, validUser.password)
+        const validPassword = bcryptjs.compareSync(password, validUser.password);
 
         if (!validPassword) {
-            return next(ErrorHandler(404, "Invalid Email and Password"))
+            return next(ErrorHandler(404, "Invalid Email or Password"));
         }
 
-        const token = jwt.sign({ id: validUser._id, isAdmin: validUser.isAdmin }, process.env.JWT_SECRET)
+        const token = jwt.sign(
+            { id: validUser._id, isAdmin: validUser.isAdmin }, 
+            process.env.JWT_SECRET, 
+            { expiresIn: '1d' } 
+        );
 
-        // Exclude sensitive information like password from the response
-        const { password: pass, ...rest } = validUser._doc
-        console.log("valid user",validPassword, "and this is token" ,token);
+        console.log("Token",token);
+        
 
-        // Respond with token and user data
-        res.status(200).json({ token, user: rest })
+        const { password: pass, ...rest } = validUser._doc;
+
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',  
+            maxAge: 24 * 60 * 60 * 1000  
+        });
+
+        res.status(200).json({ token, user: rest });
 
     } catch (error) {
-        next(error)
+        next(error);
     }
-}
+};
+
 
 
 
 
 export const google = async (req, res, next) => {
-    const { email, name, googlePhotoUrl } = req.body
-
-    const user = await User.findOne({ email })
+    const { email, name, googlePhotoUrl } = req.body;
 
     try {
+        let user = await User.findOne({ email });
+
         if (user) {
-            const token = jwt.sign({ id: user._id, isAdmin: user.isAdmin }, process.env.JWT_SECRET)
-            const { password, ...rest } = user._doc
-            res.status(200).cookie('access_token', token, {
+            const token = jwt.sign(
+                { id: user._id, isAdmin: user.isAdmin },
+                process.env.JWT_SECRET,
+                { expiresIn: '1d' }
+            );
+
+            res.cookie('token', token, {
                 httpOnly: true,
-            }).json(rest);            
-        }
-        else {
-            const generatedPassowrd = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8)
-            const hashedPassword = bcryptjs.hashSync(generatedPassowrd, 10)
+                secure: process.env.NODE_ENV === 'production',
+                maxAge: 24 * 60 * 60 * 1000  
+            });
+
+            const { password, ...rest } = user._doc;
+            return res.status(200).json({ user: rest });
+        } else {
+            const generatedPassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
+            const hashedPassword = bcryptjs.hashSync(generatedPassword, 10);
+
             const newUser = new User({
                 username: name.toLowerCase().split(' ').join('') + Math.random().toString(9).slice(-4),
                 email,
                 password: hashedPassword,
                 profileImage: googlePhotoUrl
-            })
-            await newUser.save()
-            const token = jwt.sign({ id: newUser._id, isAdmin: newUser.isAdmin  }, process.env.JWT_SECRET)
-            const { password, ...rest } = newUser._doc;
-            res.status(200).cookie('access_token', token, {
+            });
+
+            user = await newUser.save();
+
+            const token = jwt.sign(
+                { id: user._id, isAdmin: user.isAdmin },
+                process.env.JWT_SECRET,
+                { expiresIn: '1d' }
+            );
+
+            res.cookie('token', token, {
                 httpOnly: true,
-            }).json(rest);            
+                secure: process.env.NODE_ENV === 'production',  
+                maxAge: 24 * 60 * 60 * 1000  
+            });
+
+            const { password, ...rest } = user._doc;
+            return res.status(200).json({ user: rest });
         }
     } catch (error) {
-        next(error)
+        next(error);
     }
-}
+};
