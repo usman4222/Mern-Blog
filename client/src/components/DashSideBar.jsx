@@ -13,6 +13,9 @@ const DashSideBar = () => {
     const { currentUser } = useSelector(state => state.user)
     const [showModal, setShowModal] = useState(false)
 
+    console.log("This is current user",currentUser.user);
+    
+
     useEffect(() => {
         const urlParams = new URLSearchParams(location.search)
         const tabFormUrl = urlParams.get('tab')
@@ -23,8 +26,9 @@ const DashSideBar = () => {
 
     const handleSignOut = async () => {
         try {
-            const res = await fetch('https://blog-backend-ashen.vercel.app/api/user/signout', {
-                method: 'POST'
+            const res = await fetch('http://localhost:3000/api/user/signout', {
+                method: 'POST',
+                credentials: 'include',
             })
             const data = await res.json()
             if (!res.ok) {
@@ -42,7 +46,7 @@ const DashSideBar = () => {
         <Sidebar className='w-full md:w-56'>
             <Sidebar.Items>
                 <Sidebar.ItemGroup className='flex flex-col gap-1'>
-                    {currentUser.isAdmin && (
+                    {currentUser.user.isAdmin && (
                         <Link to="/dashboard?tab=dash">
                             <Sidebar.Item active={tab === "dash" || !tab} icon={HiChartPie} labelColor="dark" as='div'>
                                 Dashboard
@@ -50,25 +54,25 @@ const DashSideBar = () => {
                         </Link>
                     )}
                     <Link to="/dashboard?tab=profile">
-                        <Sidebar.Item active={tab === "profile"} icon={HiUser} label={currentUser.isAdmin ? 'Admin' : 'User'} labelColor="dark" as='div'>
+                        <Sidebar.Item active={tab === "profile"} icon={HiUser} label={currentUser.user.isAdmin ? 'Admin' : 'User'} labelColor="dark" as='div'>
                             Profile
                         </Sidebar.Item>
                     </Link>
-                    {currentUser.isAdmin && (
+                    {currentUser.user.isAdmin && (
                         <Link to="/dashboard?tab=posts">
                             <Sidebar.Item active={tab === "posts"} icon={HiDocumentText} labelColor="dark" as='div'>
                                 Posts
                             </Sidebar.Item>
                         </Link>
                     )}
-                    {currentUser.isAdmin && (
+                    {currentUser.user.isAdmin && (
                         <Link to="/dashboard?tab=comments">
                             <Sidebar.Item active={tab === "comments"} icon={HiAnnotation} labelColor="dark" as='div'>
                                 Comments
                             </Sidebar.Item>
                         </Link>
                     )}
-                    {currentUser.isAdmin && (
+                    {currentUser.user.isAdmin && (
                         <Link to="/dashboard?tab=users">
                             <Sidebar.Item active={tab === "users"} icon={HiOutlineUserGroup} labelColor="dark" as='div'>
                                 Users

@@ -15,14 +15,15 @@ const PostPages = () => {
     const [recentPosts, setRescentPosts] = useState(null)
     const { error: errorMessage, user } = useSelector(state => state.user)
 
-    console.log(user);
 
 
     useEffect(() => {
         const fetchPost = async () => {
             try {
                 setLoading(true)
-                const res = await fetch(`https://blog-backend-ashen.vercel.app/api/post/getposts?slug=${postSlug}`)
+                const res = await fetch(`http://localhost:3000/api/post/getposts?slug=${postSlug}`,
+                    
+                )
                 const data = await res.json()
                 if (!res.ok) {
                     setError(true)
@@ -46,7 +47,7 @@ const PostPages = () => {
     useEffect(() => {
         try {
             const fetchRecentPosts = async () => {
-                const res = await fetch(`https://blog-backend-ashen.vercel.app/api/post/getposts?limit=3`)
+                const res = await fetch(`http://localhost:3000/api/post/getposts?limit=3`)
                 const data = await res.json()
                 if (res.ok) {
                     setRescentPosts(data.posts)
@@ -59,8 +60,8 @@ const PostPages = () => {
     }, [])
 
     if (loading) return (
-        <div className='flex justify-center items-center '>
-            <Spinner size='xl' />
+        <div className='flex justify-center items-center h-[100vh]'>
+            <Spinner  />
         </div>
     )
 

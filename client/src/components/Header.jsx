@@ -30,8 +30,9 @@ const Header = () => {
 
     const handleSignOut = async () => {
         try {
-            const res = await fetch('https://blog-backend-ashen.vercel.app/api/user/signout', {
-                method: 'POST'
+            const res = await fetch('http://localhost:3000/api/user/signout', {
+                method: 'POST',
+                credentials: 'include',
             })
             const data = await res.json()
             if (!res.ok) {

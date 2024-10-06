@@ -18,8 +18,9 @@ const OAuth = () => {
         provider.setCustomParameters({ prompt: 'select_account' })
         try {
             const resultFromGoogle = await signInWithPopup(auth, provider)
-            const res = await fetch('https://blog-backend-ashen.vercel.app/api/auth/google', {
+            const res = await fetch('http://localhost:3000/api/auth/google', {
                 method: 'POST',
+                credentials: 'include',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     name: resultFromGoogle.user.displayName,
@@ -28,6 +29,8 @@ const OAuth = () => {
                 })
             })
             const data = await res.json()
+            console.log("This si data fomr google", data);
+            
             if (res.ok) {
                 dispatch(signInSuccess(data))
                 navigate('/')

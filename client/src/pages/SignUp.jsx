@@ -22,13 +22,15 @@ const SignUp = () => {
     try {
       setLoading(true)
       setErrorMessage(null)
-      const res = await fetch('https://blog-backend-ashen.vercel.app/api/auth/signup', {
+      const res = await fetch('http://localhost:3000/api/auth/signup', {
         method: 'POST',
+        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
       })
       const data = await res.json()
       if (data.success === false) {
+        setLoading(false)
         return setErrorMessage(data.message)
       }
       setLoading(false)
@@ -88,7 +90,7 @@ const SignUp = () => {
                   <Spinner size='sm' />
                   <span className='pl-3'>Loading...</span>
                 </>
-              ) : 'Sign Up'}
+              ) : ('Sign Up')}
             </Button>
             <OAuth />
           </form>

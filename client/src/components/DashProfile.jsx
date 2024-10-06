@@ -111,8 +111,9 @@ const DashProfile = () => {
         }
         try {
             dispatch(updateStart())
-            const res = await fetch(`https://blog-backend-ashen.vercel.app/api/user/update/${currentUser._id}`, {
+            const res = await fetch(`http://localhost:3000/api/user/update/${currentUser.user._id}`, {
                 method: 'PUT',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -137,9 +138,13 @@ const DashProfile = () => {
         setDelShowModal(false)
         try {
             dispatch(deleteUserStart())
-            const res = await fetch(`https://blog-backend-ashen.vercel.app/api/user/delete/${currentUser._id}`, {
+            const res = await fetch(`http://localhost:3000/api/user/delete/${currentUser.user._id}`,     {
                 method: 'DELETE',
-            })
+                credentials: 'include',
+                headers: {
+                  'Content-Type': 'application/json'
+                }
+              })
             const data = await res.json()
             if (!res.ok) {
                 dispatch(deleteUserFailure(data.message))
@@ -154,8 +159,9 @@ const DashProfile = () => {
 
     const handleSignOut = async () => {
         try {
-            const res = await fetch('https://blog-backend-ashen.vercel.app/api/user/signout', {
-                method: 'POST'
+            const res = await fetch('http://localhost:3000/api/user/signout', {
+                method: 'POST',
+                credentials: 'include',
             })
             const data = await res.json()
             if (!res.ok) {
@@ -201,7 +207,7 @@ const DashProfile = () => {
                         />
                     )}
                     <img
-                        src={imageFileUrl || currentUser.profileImage}
+                        src={imageFileUrl || currentUser.user.profileImage}
                         alt="user"
                         className={`rounded-full w-full h-full object-cover border-8 border-[lightgray]
                         ${imageFileUploadProgress && imageFileUploadProgress < 100 && 'opacity-60'}`}
@@ -216,14 +222,14 @@ const DashProfile = () => {
                     type='text'
                     id='username'
                     placeholder='username'
-                    defaultValue={currentUser.username}
+                    defaultValue={currentUser.user.username}
                     onChange={handleChange}
                 />
                 <TextInput
                     type='email'
                     id='email'
                     placeholder='email'
-                    defaultValue={currentUser.email}
+                    defaultValue={currentUser.user.email}
                     onChange={handleChange}
                 />
                 <TextInput
@@ -240,7 +246,7 @@ const DashProfile = () => {
                 >
                     {loading ? 'Loading...' : 'Update'}
                 </Button>
-                {currentUser.isAdmin && (
+                {currentUser.user.isAdmin && (
                     <Link to={'/create-post'}>
                         <Button type='button' gradientDuoTone='purpleToPink' className='w-full'>
                             Create a post
