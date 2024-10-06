@@ -6,11 +6,12 @@ import PostCard from '../components/PostCard'
 const Home = () => {
 
   const [posts, setPosts] = useState([])
+  console.log( import.meta.env.VITE_FIREBASE_API_KEY)
 
   useEffect(() => {
     try {
       const fetchPosts = async () => {
-        const res = await fetch('https://blog-backend-ashen.vercel.app/api/post/getposts')
+        const res = await fetch('http://localhost:3000/api/post/getposts')
         const data = await res.json()
         setPosts(data.posts)
       }
