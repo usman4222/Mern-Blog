@@ -27,12 +27,21 @@ const DashProfile = () => {
     const dispatch = useDispatch()
     const [imageFileUploadProgress, setImageFileUploadProgress] = useState(null)
     const [imageFileUploadError, setImageFileUploadError] = useState(null)
-    const [formData, setFormData] = useState({})
+    // const [formData, setFormData] = useState({})
     const [imageFileUploading, setImageFileUploading] = useState(false)
     const [updateUserSuccess, setUpdateUserSuccess] = useState(null)
     const [updateUserError, setUpdateUserError] = useState(null)
     const [showModal, setShowModal] = useState(false)
     const [delShowModal, setDelShowModal] = useState(false)
+    const [formData, setFormData] = useState({
+        username: '',
+        email: '',
+        profileImage: ''
+    });
+
+
+    console.log("upodate user", currentUser.user);
+
 
     //fire base rule for image*********
     //     rules_version = '2';
@@ -46,6 +55,19 @@ const DashProfile = () => {
     //     }
     //         }
     //     }
+
+    useEffect(() => {
+        if (currentUser && currentUser.user) {
+            setFormData({
+                username: currentUser.user.username || '',
+                email: currentUser.user.email || '',
+                profileImage: currentUser.user.profileImage || '',
+                password: currentUser.user.password || ''
+            });
+        }
+    }, [currentUser]);
+
+
 
     const handleImageChange = (e) => {
         const file = e.target.files[0]
@@ -122,7 +144,9 @@ const DashProfile = () => {
             const data = await res.json()
             if (!res.ok) {
                 dispatch(updateFailure(data.message))
-                setUpdateUserError(data.message)
+                // setUpdateUserError(data.message)
+                console.log("Two errors");
+
             }
             else {
                 dispatch(updateSuccess(data))
@@ -138,13 +162,13 @@ const DashProfile = () => {
         setDelShowModal(false)
         try {
             dispatch(deleteUserStart())
-            const res = await fetch(`http://localhost:3000/api/user/delete/${currentUser.user._id}`,     {
+            const res = await fetch(`http://localhost:3000/api/user/delete/${currentUser.user._id}`, {
                 method: 'DELETE',
                 credentials: 'include',
                 headers: {
-                  'Content-Type': 'application/json'
+                    'Content-Type': 'application/json'
                 }
-              })
+            })
             const data = await res.json()
             if (!res.ok) {
                 dispatch(deleteUserFailure(data.message))
@@ -207,7 +231,7 @@ const DashProfile = () => {
                         />
                     )}
                     <img
-                        src={imageFileUrl || currentUser.user.profileImage}
+                        src={imageFileUrl || currentUser && currentUser.user && currentUser.user.profileImage}
                         alt="user"
                         className={`rounded-full w-full h-full object-cover border-8 border-[lightgray]
                         ${imageFileUploadProgress && imageFileUploadProgress < 100 && 'opacity-60'}`}
@@ -222,19 +246,22 @@ const DashProfile = () => {
                     type='text'
                     id='username'
                     placeholder='username'
-                    defaultValue={currentUser.user.username}
+                    value={formData.username}
+                    defaultValue={currentUser && currentUser.user && currentUser.user.username}
                     onChange={handleChange}
                 />
                 <TextInput
                     type='email'
                     id='email'
                     placeholder='email'
-                    defaultValue={currentUser.user.email}
+                    value={formData.email}
+                    defaultValue={currentUser && currentUser.user && currentUser.user.email}
                     onChange={handleChange}
                 />
                 <TextInput
                     type='password'
                     id='password'
+                    value={formData.password}
                     placeholder='******'
                     onChange={handleChange}
                 />
@@ -246,7 +273,7 @@ const DashProfile = () => {
                 >
                     {loading ? 'Loading...' : 'Update'}
                 </Button>
-                {currentUser.user.isAdmin && (
+                {currentUser && currentUser.user && currentUser.user.isAdmin && (
                     <Link to={'/create-post'}>
                         <Button type='button' gradientDuoTone='purpleToPink' className='w-full'>
                             Create a post

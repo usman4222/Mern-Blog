@@ -15,7 +15,7 @@ const userSlice = createSlice({
             state.error = null
         },
         signInSuccess: (state, action) => {
-            console.log("this is user slice",action.payload);
+            console.log("this is user slice", action.payload);
             state.currentUser = action.payload;
             state.loading = false;
             state.error = null
@@ -29,9 +29,12 @@ const userSlice = createSlice({
             state.error = null;
         },
         updateSuccess: (state, action) => {
-            state.currentUser = action.payload,
-                state.loading = false,
-                state.error = null
+            state.currentUser = {
+                ...state.currentUser,
+                user: action.payload
+            };
+            state.loading = false;
+            state.error = null;
         },
         updateFailure: (state, action) => {
             state.loading = false,

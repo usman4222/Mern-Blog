@@ -103,9 +103,9 @@ const CreatePost = () => {
             }
           >
             <option value="uncategorized">Select a Categpory</option>
-            <option value="javascript">JavaScript</option>
-            <option value="python">Python</option>
-            <option value="java">Java</option>
+            <option value='reactjs'>React.js</option>
+            <option value='nextjs'>Next.js</option>
+            <option value='javascript'>JavaScript</option>
           </Select>
         </div>
         <div className="flex justify-between items-center gap-4 border-4 border-teal-500 border-dotted p-3">
