@@ -102,7 +102,7 @@ const DashUsers = () => {
         <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
             {isLoading ? (
                 <div className="flex h-[100vh] justify-center items-center">
-                    <Spinner /> {/* This is your loading spinner component */}
+                    <Spinner />
                 </div>
             ) : (
                 <>

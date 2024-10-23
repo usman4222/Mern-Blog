@@ -46,13 +46,11 @@ export const likeComment = async (req, res, next) => {
         const userIndex = comment.likes.indexOf(req.user.id);
 
         if (userIndex === -1) {
-            // User is not in the likes array
             comment.numberOfLikes = Math.max(0, comment.numberOfLikes) + 1;
             comment.likes.push(req.user.id);
         } else {
-            // User is already in the likes array
             comment.numberOfLikes = Math.max(0, comment.numberOfLikes - 1);
-            comment.likes.splice(userIndex, 1); // Remove user like
+            comment.likes.splice(userIndex, 1); 
         }
 
         await comment.save();

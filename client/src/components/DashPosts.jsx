@@ -13,10 +13,7 @@ const DashPosts = () => {
   const [postIdToDelete, setPostIdToDelete] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  console.log("userPosts", userPosts);
-  
 
-  // 
   useEffect(() => {
     const fetchPosts = async () => {
       setLoading(true);

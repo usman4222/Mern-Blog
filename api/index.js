@@ -17,7 +17,7 @@ mongoose.connect(process.env.MONGO)
     .catch((error) => {
         console.log('Error while connecting DB', error);
     });
-// const __dirname = path.resolve()
+
 const app = express();
 app.use(express.json())
 app.use(cookieParser())
