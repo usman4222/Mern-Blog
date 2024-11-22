@@ -19,7 +19,7 @@ const DashPosts = () => {
       setLoading(true);
       try {
         const res = await fetch(
-          `http://localhost:3000/api/post/getposts?userId=${currentUser.user._id}`,
+          `https://blog-backend-lkyz51ond-rana-usmans-projects.vercel.app/api/post/getposts/api/post/getposts?userId=${currentUser.user._id}`,
           {
             method: "GET",
             credentials: "include",
@@ -54,7 +54,7 @@ const DashPosts = () => {
     const startIndex = userPosts.length;
     try {
       const res = await fetch(
-        `http://localhost:3000/api/post/getposts?userId=${currentUser.user._id}&startIndex=${startIndex}`,
+        `https://blog-app-backend-nu-kohl.vercel.app/api/post/getposts?userId=${currentUser.user._id}&startIndex=${startIndex}`,
         {
           method: "GET",
           credentials: "include",
