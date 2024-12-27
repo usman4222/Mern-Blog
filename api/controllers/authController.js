@@ -33,20 +33,20 @@ export const signIn = async (req, res, next) => {
     const { email, password } = req.body;
   
     if (!email || !password || email === "" || password === "") {
-      return next(new ErrorHandler(400, "Email or password is required"));
+      return next(ErrorHandler(400, "Email or password is required"));
     }
   
     try {
       const validUser = await User.findOne({ email });
   
       if (!validUser) {
-        return next(new ErrorHandler(404, "Invalid Email or Password"));
+        return next(ErrorHandler(404, "Invalid Email or Password"));
       }
   
       const validPassword = bcryptjs.compareSync(password, validUser.password);
   
       if (!validPassword) {
-        return next(new ErrorHandler(404, "Invalid Email or Password"));
+        return next(ErrorHandler(404, "Invalid Email or Password"));
       }
   
       const token = jwt.sign(
