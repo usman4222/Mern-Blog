@@ -31,47 +31,45 @@ export const signUp = async (req, res, next) => {
 
 export const signIn = async (req, res, next) => {
     const { email, password } = req.body;
-
+  
     if (!email || !password || email === "" || password === "") {
-        return next(ErrorHandler(400, "Email or password is required"));
+      return next(new ErrorHandler(400, "Email or password is required"));
     }
-
+  
     try {
-        const validUser = await User.findOne({ email });
-
-        if (!validUser) {
-            return next(ErrorHandler(404, "Invalid Email or Password"));
-        }
-
-        const validPassword = bcryptjs.compareSync(password, validUser.password);
-
-        if (!validPassword) {
-            return next(ErrorHandler(404, "Invalid Email or Password"));
-        }
-
-        const token = jwt.sign(
-            { id: validUser._id, isAdmin: validUser.isAdmin }, 
-            process.env.JWT_SECRET, 
-            { expiresIn: '1d' } 
-        );
-
-        console.log("Token",token);
-        
-
-        const { password: pass, ...rest } = validUser._doc;
-
-        res.cookie('token', token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',  
-            maxAge: 24 * 60 * 60 * 1000  
-        });
-
-        res.status(200).json({ token, user: rest });
-
+      const validUser = await User.findOne({ email });
+  
+      if (!validUser) {
+        return next(new ErrorHandler(404, "Invalid Email or Password"));
+      }
+  
+      const validPassword = bcryptjs.compareSync(password, validUser.password);
+  
+      if (!validPassword) {
+        return next(new ErrorHandler(404, "Invalid Email or Password"));
+      }
+  
+      const token = jwt.sign(
+        { id: validUser._id, isAdmin: validUser.isAdmin },
+        process.env.JWT_SECRET,
+        { expiresIn: "1d" }
+      );
+  
+      const { password: pass, ...rest } = validUser._doc;
+  
+      res.cookie("token", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        maxAge: 24 * 60 * 60 * 1000,
+      });
+  
+      res.status(200).json({ success: true, user: rest });
     } catch (error) {
-        next(error);
+      next(error);
     }
-};
+  };
+  
 
 
 
