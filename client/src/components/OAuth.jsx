@@ -18,7 +18,7 @@ const OAuth = () => {
         provider.setCustomParameters({ prompt: 'select_account' })
         try {
             const resultFromGoogle = await signInWithPopup(auth, provider)
-            const res = await fetch('http://localhost:3000/api/auth/google', {
+            const res = await fetch('https://mern-blog-brown-beta.vercel.app/api/auth/google', {
                 method: 'POST',
                 credentials: 'include',
                 headers: { "Content-Type": "application/json" },

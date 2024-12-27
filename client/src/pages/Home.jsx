@@ -11,7 +11,7 @@ const Home = () => {
   useEffect(() => {
     try {
       const fetchPosts = async () => {
-        const res = await fetch('http://localhost:3000/api/post/getposts')
+        const res = await fetch('https://mern-blog-brown-beta.vercel.app/api/post/getposts')
         const data = await res.json()
         setPosts(data.posts)
       }

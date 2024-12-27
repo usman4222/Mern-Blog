@@ -26,7 +26,7 @@ const DashSideBar = () => {
 
     const handleSignOut = async () => {
         try {
-            const res = await fetch('http://localhost:3000/api/user/signout', {
+            const res = await fetch('https://mern-blog-brown-beta.vercel.app/api/user/signout', {
                 method: 'POST',
                 credentials: 'include',
             })

@@ -132,7 +132,7 @@ const DashProfile = () => {
         }
         try {
             dispatch(updateStart())
-            const res = await fetch(`http://localhost:3000/api/user/update/${currentUser.user._id}`, {
+            const res = await fetch(`https://mern-blog-brown-beta.vercel.app/api/user/update/${currentUser.user._id}`, {
                 method: 'PUT',
                 credentials: 'include',
                 headers: {
@@ -161,7 +161,7 @@ const DashProfile = () => {
         setDelShowModal(false)
         try {
             dispatch(deleteUserStart())
-            const res = await fetch(`http://localhost:3000/api/user/delete/${currentUser.user._id}`, {
+            const res = await fetch(`https://mern-blog-brown-beta.vercel.app/api/user/delete/${currentUser.user._id}`, {
                 method: 'DELETE',
                 credentials: 'include',
                 headers: {
@@ -182,7 +182,7 @@ const DashProfile = () => {
 
     const handleSignOut = async () => {
         try {
-            const res = await fetch('http://localhost:3000/api/user/signout', {
+            const res = await fetch('https://mern-blog-brown-beta.vercel.app/api/user/signout', {
                 method: 'POST',
                 credentials: 'include',
             })

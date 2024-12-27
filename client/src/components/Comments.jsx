@@ -13,7 +13,7 @@ const Comments = ({ comment, onLike, onEdit, onDelete }) => {
     const getUser = async () => {
       try {
         const res = await fetch(
-          `http://localhost:3000/api/user/${comment.userId}`,
+          `https://mern-blog-brown-beta.vercel.app/api/user/${comment.userId}`,
 
           {
             method: "GET",
@@ -42,7 +42,7 @@ const Comments = ({ comment, onLike, onEdit, onDelete }) => {
   const handleSave = async () => {
     try {
       const res = await fetch(
-        `http://localhost:3000/api/comment/editcomment/${comment._id}`,
+        `https://mern-blog-brown-beta.vercel.app/api/comment/editcomment/${comment._id}`,
         {
           method: "PUT",
           credentials: "include",

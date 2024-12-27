@@ -59,9 +59,9 @@ const CreatePost = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:3000/api/post/create", {
+      const res = await fetch("https://mern-blog-brown-beta.vercel.app/api/post/create", {
         method: "POST",
-        credentials: 'include',
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },

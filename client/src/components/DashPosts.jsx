@@ -19,7 +19,7 @@ const DashPosts = () => {
       setLoading(true);
       try {
         const res = await fetch(
-          `https://blog-backend-lkyz51ond-rana-usmans-projects.vercel.app/api/post/getposts/api/post/getposts?userId=${currentUser.user._id}`,
+          `https://mern-blog-brown-beta.vercel.app/api/post/getposts/api/post/getposts?userId=${currentUser.user._id}`,
           {
             method: "GET",
             credentials: "include",
@@ -54,7 +54,7 @@ const DashPosts = () => {
     const startIndex = userPosts.length;
     try {
       const res = await fetch(
-        `https://blog-app-backend-nu-kohl.vercel.app/api/post/getposts?userId=${currentUser.user._id}&startIndex=${startIndex}`,
+        `https://mern-blog-brown-beta.vercel.app/api/post/getposts?userId=${currentUser.user._id}&startIndex=${startIndex}`,
         {
           method: "GET",
           credentials: "include",
@@ -79,7 +79,7 @@ const DashPosts = () => {
     setShowModal(false);
     try {
       const res = await fetch(
-        `http://localhost:3000/api/post/deletepost/${postIdToDelete}/${currentUser.user._id}`,
+        `https://mern-blog-brown-beta.vercel.app/api/post/deletepost/${postIdToDelete}/${currentUser.user._id}`,
         {
           method: "DELETE",
           credentials: "include",

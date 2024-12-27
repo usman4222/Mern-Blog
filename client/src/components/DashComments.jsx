@@ -18,7 +18,7 @@ const DashComments = () => {
     const fetchComments = async () => {
       try {
         const res = await fetch(
-          `http://localhost:3000/api/comment/getcomments`,
+          `https://mern-blog-brown-beta.vercel.app/api/comment/getcomments`,
           {
             method: "GET",
             credentials: "include",
@@ -53,7 +53,7 @@ const DashComments = () => {
     const startIndex = comments.length;
     try {
       const res = await fetch(
-        `http://localhost:3000/api/comment/getcomments?startIndex=${startIndex}`,
+        `https://mern-blog-brown-beta.vercel.app/api/comment/getcomments?startIndex=${startIndex}`,
         {
           method: "GET",
           credentials: "include",
@@ -78,7 +78,7 @@ const DashComments = () => {
     setShowModal(false);
     try {
       const res = await fetch(
-        `http://localhost:3000/api/comment/deletecomment/${commentIdToDelete}`,
+        `https://mern-blog-brown-beta.vercel.app/api/comment/deletecomment/${commentIdToDelete}`,
         {
           method: 'DELETE',
           credentials: 'include',

@@ -25,7 +25,7 @@ const DashboardComponent = () => {
     const fetchUsers = async () => {
       try {
         const res = await fetch(
-          "http://localhost:3000/api/user/getusers?limit=5",
+          "https://mern-blog-brown-beta.vercel.app/api/user/getusers?limit=5",
           {
             method: "GET",
             credentials: "include",
@@ -47,7 +47,7 @@ const DashboardComponent = () => {
     const fetchPosts = async () => {
       try {
         const res = await fetch(
-          "http://localhost:3000/api/post/getposts?limit=5",
+          "https://mern-blog-brown-beta.vercel.app/api/post/getposts?limit=5",
           {
             method: "GET",
             credentials: "include",
@@ -69,7 +69,7 @@ const DashboardComponent = () => {
     const fetchComments = async () => {
       try {
         const res = await fetch(
-          "http://localhost:3000/api/comment/getcomments?limit=5",
+          "https://mern-blog-brown-beta.vercel.app/api/comment/getcomments?limit=5",
           {
             method: "GET",
             credentials: "include",

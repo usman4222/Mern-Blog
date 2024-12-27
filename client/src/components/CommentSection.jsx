@@ -20,7 +20,7 @@ const CommentSection = ({ postId }) => {
       return;
     }
     try {
-      const res = await fetch("http://localhost:3000/api/comment/create", {
+      const res = await fetch("https://mern-blog-brown-beta.vercel.app/api/comment/create", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -48,7 +48,7 @@ const CommentSection = ({ postId }) => {
     const getComments = async () => {
       try {
         const res = await fetch(
-          `http://localhost:3000/api/comment/getpostcomments/${postId}`,
+          `https://mern-blog-brown-beta.vercel.app/api/comment/getpostcomments/${postId}`,
           {
             method: "GET",
             credentials: "include",
@@ -76,7 +76,7 @@ const CommentSection = ({ postId }) => {
       }
 
       const res = await fetch(
-        `http://localhost:3000/api/comment/likecomment/${commentId}`,
+        `https://mern-blog-brown-beta.vercel.app/api/comment/likecomment/${commentId}`,
         {
           method: "PUT",
           credentials: "include",
@@ -123,7 +123,7 @@ const CommentSection = ({ postId }) => {
       }
 
       const res = await fetch(
-        `http://localhost:3000/api/comment/deletecomment/${commentId}`,
+        `https://mern-blog-brown-beta.vercel.app/api/comment/deletecomment/${commentId}`,
         {
           method: "DELETE",
           credentials: "include",
